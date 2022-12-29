@@ -1,0 +1,193 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-12-29 08:01:43.713183",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_id",
+  "item_name",
+  "code",
+  "uom",
+  "item",
+  "column_break_7",
+  "inactive",
+  "rate",
+  "item_image",
+  "description_in_ol",
+  "section_break_11",
+  "sub_course",
+  "is_restaurant_item",
+  "stock_item",
+  "kitchen",
+  "have_more_item",
+  "show_modifiers",
+  "column_break_19",
+  "tax_group",
+  "tax_inclusive",
+  "sp_rate",
+  "inventory_id",
+  "item_remarks",
+  "load_modifier"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_id",
+   "fieldtype": "Data",
+   "label": "Item ID"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "code",
+   "fieldtype": "Data",
+   "label": "Code"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Data",
+   "label": "UOM"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Data",
+   "label": "Rate"
+  },
+  {
+   "fieldname": "inactive",
+   "fieldtype": "Data",
+   "label": "Inactive"
+  },
+  {
+   "fieldname": "item_image",
+   "fieldtype": "Attach Image",
+   "label": "Item Image"
+  },
+  {
+   "fieldname": "description_in_ol",
+   "fieldtype": "Data",
+   "label": "Description in OL"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Tab Break",
+   "label": "Sub Info"
+  },
+  {
+   "fieldname": "sub_course",
+   "fieldtype": "Data",
+   "label": "Sub Course"
+  },
+  {
+   "fieldname": "is_restaurant_item",
+   "fieldtype": "Data",
+   "label": "Is Restaurant Item"
+  },
+  {
+   "fieldname": "stock_item",
+   "fieldtype": "Data",
+   "label": "Stock Item"
+  },
+  {
+   "fieldname": "kitchen",
+   "fieldtype": "Data",
+   "label": "Kitchen"
+  },
+  {
+   "fieldname": "tax_group",
+   "fieldtype": "Data",
+   "label": "Tax Group"
+  },
+  {
+   "fieldname": "tax_inclusive",
+   "fieldtype": "Data",
+   "label": "Tax Inclusive"
+  },
+  {
+   "fieldname": "have_more_item",
+   "fieldtype": "Data",
+   "label": "Have More Item"
+  },
+  {
+   "fieldname": "show_modifiers",
+   "fieldtype": "Data",
+   "label": "Show Modifiers"
+  },
+  {
+   "fieldname": "sp_rate",
+   "fieldtype": "Data",
+   "label": "SP Rate"
+  },
+  {
+   "fieldname": "inventory_id",
+   "fieldtype": "Data",
+   "label": "Inventory ID"
+  },
+  {
+   "fieldname": "item_remarks",
+   "fieldtype": "Data",
+   "label": "Item Remarks"
+  },
+  {
+   "fieldname": "load_modifier",
+   "fieldtype": "Data",
+   "label": "Load Modifier"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-12-29 08:05:56.282573",
+ "modified_by": "Administrator",
+ "module": "RMS POS",
+ "name": "RMS Item",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
