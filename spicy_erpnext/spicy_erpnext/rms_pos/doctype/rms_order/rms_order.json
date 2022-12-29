@@ -1,0 +1,278 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-12-29 09:02:32.233126",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "order_no",
+  "table_no",
+  "column_break_4",
+  "waiter",
+  "guest",
+  "token_no",
+  "preparation_remarks",
+  "section_break_8",
+  "order_items",
+  "section_break_11",
+  "tax_group",
+  "tax_percentage",
+  "tax_amount",
+  "total",
+  "column_break_15",
+  "discount_amount",
+  "discount_percentage",
+  "net_total",
+  "amended_from",
+  "tab_break_13",
+  "type",
+  "no_of_guest",
+  "branch",
+  "counter",
+  "user",
+  "period",
+  "shift",
+  "kstatus",
+  "column_break_30",
+  "deliver_time",
+  "advance",
+  "route",
+  "service_percentage",
+  "service_amount",
+  "privilege_card",
+  "privilege_card_discount",
+  "sales_order_no",
+  "round_off",
+  "is_print"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "label": "Date"
+  },
+  {
+   "fieldname": "order_no",
+   "fieldtype": "Data",
+   "label": "Order No"
+  },
+  {
+   "fieldname": "table_no",
+   "fieldtype": "Data",
+   "label": "Table No"
+  },
+  {
+   "fieldname": "waiter",
+   "fieldtype": "Data",
+   "label": "Waiter"
+  },
+  {
+   "fieldname": "guest",
+   "fieldtype": "Data",
+   "label": "Guest"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total"
+  },
+  {
+   "fieldname": "discount_amount",
+   "fieldtype": "Currency",
+   "label": "Discount Amount"
+  },
+  {
+   "fieldname": "discount_percentage",
+   "fieldtype": "Float",
+   "label": "Discount Percentage"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "RMS Order",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "token_no",
+   "fieldtype": "Data",
+   "label": "Token No"
+  },
+  {
+   "fieldname": "preparation_remarks",
+   "fieldtype": "Small Text",
+   "label": "Preparation Remarks"
+  },
+  {
+   "fieldname": "net_total",
+   "fieldtype": "Currency",
+   "label": "Net Total"
+  },
+  {
+   "fieldname": "tab_break_13",
+   "fieldtype": "Tab Break",
+   "label": "Misc."
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Type"
+  },
+  {
+   "fieldname": "no_of_guest",
+   "fieldtype": "Data",
+   "label": "No Of Guest"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch"
+  },
+  {
+   "fieldname": "counter",
+   "fieldtype": "Data",
+   "label": "Counter"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "period",
+   "fieldtype": "Data",
+   "label": "Period"
+  },
+  {
+   "fieldname": "shift",
+   "fieldtype": "Data",
+   "label": "Shift"
+  },
+  {
+   "fieldname": "tax_group",
+   "fieldtype": "Data",
+   "label": "Tax Group"
+  },
+  {
+   "fieldname": "tax_percentage",
+   "fieldtype": "Float",
+   "label": "Tax Percentage"
+  },
+  {
+   "fieldname": "tax_amount",
+   "fieldtype": "Currency",
+   "label": "Tax Amount"
+  },
+  {
+   "fieldname": "kstatus",
+   "fieldtype": "Data",
+   "label": "KStatus"
+  },
+  {
+   "fieldname": "deliver_time",
+   "fieldtype": "Datetime",
+   "label": "Deliver Time"
+  },
+  {
+   "fieldname": "advance",
+   "fieldtype": "Data",
+   "label": "Advance"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "fieldname": "service_percentage",
+   "fieldtype": "Data",
+   "label": "Service Percentage"
+  },
+  {
+   "fieldname": "service_amount",
+   "fieldtype": "Data",
+   "label": "Service Amount"
+  },
+  {
+   "fieldname": "privilege_card",
+   "fieldtype": "Data",
+   "label": "Privilege Card"
+  },
+  {
+   "fieldname": "privilege_card_discount",
+   "fieldtype": "Data",
+   "label": "Privilege Card Discount"
+  },
+  {
+   "fieldname": "sales_order_no",
+   "fieldtype": "Data",
+   "label": "Sales Order No"
+  },
+  {
+   "fieldname": "round_off",
+   "fieldtype": "Data",
+   "label": "Round Off"
+  },
+  {
+   "fieldname": "is_print",
+   "fieldtype": "Data",
+   "label": "Is Print"
+  },
+  {
+   "fieldname": "order_items",
+   "fieldtype": "Table",
+   "label": "Order Items",
+   "options": "RMS Order Item"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-12-29 09:28:36.107481",
+ "modified_by": "Administrator",
+ "module": "RMS POS",
+ "name": "RMS Order",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

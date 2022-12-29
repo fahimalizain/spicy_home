@@ -1,0 +1,143 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2022-12-29 09:24:43.633803",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sl_no",
+  "item_id",
+  "rms_item",
+  "item_sl_no",
+  "rate",
+  "qty",
+  "is_modifier",
+  "column_break_8",
+  "tax",
+  "tax_group",
+  "size_id",
+  "temperature_id",
+  "selection_id",
+  "branch",
+  "counter",
+  "period",
+  "pqty",
+  "sqty",
+  "premarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "sl_no",
+   "fieldtype": "Int",
+   "label": "SL No"
+  },
+  {
+   "fieldname": "item_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item ID"
+  },
+  {
+   "fieldname": "rms_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "RMS Item",
+   "options": "RMS Item"
+  },
+  {
+   "fieldname": "item_sl_no",
+   "fieldtype": "Data",
+   "label": "Item SL No"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rate"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Qty"
+  },
+  {
+   "fieldname": "is_modifier",
+   "fieldtype": "Data",
+   "label": "Is Modifier"
+  },
+  {
+   "fieldname": "size_id",
+   "fieldtype": "Data",
+   "label": "Size ID"
+  },
+  {
+   "fieldname": "temperature_id",
+   "fieldtype": "Data",
+   "label": "Temperature ID"
+  },
+  {
+   "fieldname": "selection_id",
+   "fieldtype": "Data",
+   "label": "Selection ID"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch"
+  },
+  {
+   "fieldname": "counter",
+   "fieldtype": "Data",
+   "label": "Counter"
+  },
+  {
+   "fieldname": "period",
+   "fieldtype": "Data",
+   "label": "Period"
+  },
+  {
+   "fieldname": "pqty",
+   "fieldtype": "Data",
+   "label": "PQty"
+  },
+  {
+   "fieldname": "sqty",
+   "fieldtype": "Data",
+   "label": "SQty"
+  },
+  {
+   "fieldname": "premarks",
+   "fieldtype": "Data",
+   "label": "PRemarks"
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Data",
+   "label": "Tax"
+  },
+  {
+   "fieldname": "tax_group",
+   "fieldtype": "Data",
+   "label": "Tax Group"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-12-29 09:29:54.352107",
+ "modified_by": "Administrator",
+ "module": "RMS POS",
+ "name": "RMS Order Item",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
