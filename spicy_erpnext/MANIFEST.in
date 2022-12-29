@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include spicy_erpnext *.css
+recursive-include spicy_erpnext *.csv
+recursive-include spicy_erpnext *.html
+recursive-include spicy_erpnext *.ico
+recursive-include spicy_erpnext *.js
+recursive-include spicy_erpnext *.json
+recursive-include spicy_erpnext *.md
+recursive-include spicy_erpnext *.png
+recursive-include spicy_erpnext *.py
+recursive-include spicy_erpnext *.svg
+recursive-include spicy_erpnext *.txt
+recursive-exclude spicy_erpnext *.pyc
