@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:item_id",
  "creation": "2022-12-29 08:01:43.713183",
  "default_view": "List",
  "doctype": "DocType",
@@ -11,7 +12,6 @@
   "item_name",
   "code",
   "uom",
-  "item",
   "column_break_7",
   "inactive",
   "rate",
@@ -34,20 +34,15 @@
  ],
  "fields": [
   {
-   "fieldname": "item",
-   "fieldtype": "Link",
-   "label": "Item",
-   "options": "Item",
-   "read_only": 1
-  },
-  {
    "fieldname": "item_id",
    "fieldtype": "Data",
-   "label": "Item ID"
+   "label": "Item ID",
+   "unique": 1
   },
   {
    "fieldname": "item_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Item Name"
   },
   {
@@ -63,6 +58,7 @@
   {
    "fieldname": "rate",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Rate"
   },
   {
@@ -78,6 +74,7 @@
   {
    "fieldname": "description_in_ol",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Description in OL"
   },
   {
@@ -156,10 +153,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-12-29 08:05:56.282573",
+ "modified": "2023-01-30 12:43:36.986908",
  "modified_by": "Administrator",
  "module": "RMS POS",
  "name": "RMS Item",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -189,5 +187,7 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "item_name",
+ "track_changes": 1
 }
