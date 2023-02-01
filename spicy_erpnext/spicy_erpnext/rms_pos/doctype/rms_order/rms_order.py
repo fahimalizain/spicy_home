@@ -108,6 +108,9 @@ def enqueue_draft_rms_order_submission():
         limit_page_length=100
     )
 
+    if not len(orders):
+        return
+
     for order in orders:
         frappe.enqueue(
             submit_draft_order,
