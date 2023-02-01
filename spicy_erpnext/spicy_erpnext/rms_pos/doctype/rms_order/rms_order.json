@@ -9,8 +9,10 @@
  "field_order": [
   "date",
   "order_no",
+  "db_index",
   "table_no",
   "column_break_4",
+  "status",
   "waiter",
   "guest",
   "token_no",
@@ -52,12 +54,14 @@
   {
    "fieldname": "date",
    "fieldtype": "Datetime",
+   "in_list_view": 1,
    "label": "Date"
   },
   {
    "fieldname": "order_no",
-   "fieldtype": "Data",
-   "label": "Order No"
+   "fieldtype": "Int",
+   "label": "Order No",
+   "search_index": 1
   },
   {
    "fieldname": "table_no",
@@ -111,6 +115,7 @@
   {
    "fieldname": "net_total",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Net Total"
   },
   {
@@ -248,18 +253,32 @@
   {
    "fieldname": "column_break_30",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nSubmitted\nError"
+  },
+  {
+   "fieldname": "db_index",
+   "fieldtype": "Int",
+   "label": "DB Index"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-12-29 09:28:36.107481",
+ "modified": "2023-01-28 12:50:14.700613",
  "modified_by": "Administrator",
  "module": "RMS POS",
  "name": "RMS Order",
+ "naming_rule": "By script",
  "owner": "Administrator",
  "permissions": [
   {
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -269,10 +288,12 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "order_no"
 }
