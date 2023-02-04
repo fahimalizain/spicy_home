@@ -91,6 +91,19 @@ export default class FrappeClient {
     return r.data;
   }
 
+  async post_cmd(cmd: string, params: any) {
+    const r = await this.axios
+      .post("/api/method/" + cmd, params)
+      .catch((err) => {
+        return Promise.reject({
+          message: "Frappe post_cmd failed",
+          err,
+        });
+      });
+
+    return r.data.message;
+  }
+
   log(...content: any[]) {
     console.log("FrappeClient:", ...content);
   }

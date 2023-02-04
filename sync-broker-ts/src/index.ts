@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import FrappeClient from "./frappe-client";
 import SyncItems from "./sync_item";
 import SyncOrders from "./sync_order";
+import SyncItemGroups from "./sync_item_group";
 const { connectToDB } = require("./db");
 
 dotenv.config();
@@ -12,6 +13,10 @@ async function main() {
   const client = new FrappeClient();
   await client.ping();
   await client.authenticate();
+
+  // const syncItemGroups = new SyncItemGroups(client);
+  // await syncItemGroups.syncAll();
+  // return;
 
   const syncItems = new SyncItems(client);
   await syncItems.syncAll();
