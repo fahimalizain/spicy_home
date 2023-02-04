@@ -12,6 +12,8 @@ fixtures = [
         "dt": "Custom Field",
         "filters": [
             ["name", "in", [
+                "Item Group-rms_id",
+                "Item Group-rms_kind",
                 "Item-rms_item",
                 "Sales Invoice-rms_order",
             ]]]
