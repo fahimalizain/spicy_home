@@ -24,9 +24,23 @@ class RMSItem(Document):
         doc.update(dict(
             item_code=self.item_id,
             item_name=self.item_name,
-            item_group="Consumable",
+            item_group=self.get_item_group(),
             description=self.description_in_ol,
             standard_rate=self.rate,
             rms_item=self.name,
         ))
         doc.save()
+
+    def get_item_group(self):
+        item_group = frappe.db.get_value(
+            "Item Group",
+            {
+                "is_group": 0,
+                "rms_id": self.sub_course,
+                "rms_kind": "SubCourse"
+            })
+
+        if not item_group:
+            return "Default Item Group"
+
+        return item_group
