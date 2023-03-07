@@ -1,0 +1,35 @@
+{
+  "name": "mssql-sync",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/mssql-sync/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/mssql-sync",
+        "main": "libs/mssql-sync/src/index.ts",
+        "tsConfig": "libs/mssql-sync/tsconfig.lib.json",
+        "assets": ["libs/mssql-sync/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/mssql-sync/**/*.ts"]
+      }
+    },
+    "sync": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "node --nolazy -r ts-node/register/transpile-only ./src/index.ts"
+        ],
+        "cwd": "libs/mssql-sync"
+      }
+    }
+  },
+  "tags": []
+}

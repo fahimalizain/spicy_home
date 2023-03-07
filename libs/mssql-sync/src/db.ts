@@ -1,6 +1,6 @@
 import sql from "mssql";
 
-async function connectToDB() {
+export async function connectToDB() {
   await sql
     .connect({
       server: process.env.MSSQL_SERVER,
@@ -18,16 +18,16 @@ async function connectToDB() {
     });
 }
 
-async function dbSQL(query: string, params: object | null = null) {
+export async function dbSQL(query: string, params: object | null = null) {
   const request = new sql.Request();
   if (params) {
     Object.keys(params).forEach((key) => {
       request.input(key, params[key]);
     });
   }
-  
+
   let r = await request.query(query);
   return r.recordset;
 }
 
-export { connectToDB, sql, dbSQL };
+export const sql = sql;

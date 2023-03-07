@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import FrappeClient from "./frappe-client";
 import SyncItems from "./sync_item";
 import SyncOrders from "./sync_order";
