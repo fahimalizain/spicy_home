@@ -126,64 +126,64 @@ export function DBRMSOrderToFrappeRMSOrder(
   rms_order_header: DBRMSOrder
 ): RMSOrder {
   return {
-    doctype: "RMS Order",
+    doctype: 'RMS Order',
     date: formatDateToString(rms_order_header.Date),
     order_no: rms_order_header.OrderNo,
     db_index: getRMSDBIndex(),
-    table_no: (rms_order_header.TableNo || "").toString(),
-    waiter: (rms_order_header.Waiter || "").toString(),
-    guest: (rms_order_header.Guest || "").toString(),
-    token_no: (rms_order_header.TokenNO || "").toString(),
+    table_no: (rms_order_header.TableNo || '').toString(),
+    waiter: (rms_order_header.Waiter || '').toString(),
+    guest: (rms_order_header.Guest || '').toString(),
+    token_no: (rms_order_header.TokenNO || '').toString(),
     preparation_remarks: rms_order_header.PreparationRemarks,
     order_items: rms_order_header.items.map((detail) => {
       return {
-        doctype: "RMS Order Item",
+        doctype: 'RMS Order Item',
         sl_no: detail.SlNo,
         item_id: detail.ItemId.toString(),
-        item_sl_no: (detail.ItemSlNo || "").toString(),
+        item_sl_no: (detail.ItemSlNo || '').toString(),
         rate: detail.Rate,
         qty: detail.Qty,
-        is_modifier: detail.IsModifier ? "1" : "0",
-        tax: (detail.Tax || "").toString(),
-        tax_group: (detail.TaxGroup || "").toString(),
-        size_id: (detail.SizeId || "").toString(),
-        temperature_id: (detail.TemperatureID || "").toString(),
-        selection_id: (detail.SelectionID || "").toString(),
-        branch: (detail.Branch || "").toString(),
-        counter: (detail.Counter || "").toString(),
-        period: (detail.Period || "").toString(),
-        pqty: (detail.PQty || "").toString(),
-        sqty: (detail.SQty || "").toString(),
+        is_modifier: detail.IsModifier ? '1' : '0',
+        tax: (detail.Tax || '').toString(),
+        tax_group: (detail.TaxGroup || '').toString(),
+        size_id: (detail.SizeId || '').toString(),
+        temperature_id: (detail.TemperatureID || '').toString(),
+        selection_id: (detail.SelectionID || '').toString(),
+        branch: (detail.Branch || '').toString(),
+        counter: (detail.Counter || '').toString(),
+        period: (detail.Period || '').toString(),
+        pqty: (detail.PQty || '').toString(),
+        sqty: (detail.SQty || '').toString(),
         premarks: detail.PRemarks,
       };
     }),
-    tax_group: (rms_order_header.TaxGroup || "").toString(),
+    tax_group: (rms_order_header.TaxGroup || '').toString(),
     tax_percentage: rms_order_header.TaxPercentage,
     tax_amount: rms_order_header.TaxAmount,
     total: rms_order_header.Total,
     discount_amount: rms_order_header.DiscountAmount,
     discount_percentage: rms_order_header.DiscountPercentage,
     net_total: rms_order_header.NetTotal,
-    type: (rms_order_header.Type || "").toString(),
-    no_of_guest: (rms_order_header.NoofGuest || "").toString(),
-    branch: (rms_order_header.Branch || "").toString(),
-    counter: (rms_order_header.Counter || "").toString(),
-    user: (rms_order_header.User || "").toString(),
-    period: (rms_order_header.Period || "").toString(),
-    shift: (rms_order_header.Shift || "").toString(),
-    kstatus: (rms_order_header.KStatus || "").toString(),
+    type: (rms_order_header.Type || '').toString(),
+    no_of_guest: (rms_order_header.NoofGuest || '').toString(),
+    branch: (rms_order_header.Branch || '').toString(),
+    counter: (rms_order_header.Counter || '').toString(),
+    user: (rms_order_header.User || '').toString(),
+    period: (rms_order_header.Period || '').toString(),
+    shift: (rms_order_header.Shift || '').toString(),
+    kstatus: (rms_order_header.KStatus || '').toString(),
     deliver_time: formatDateToString(rms_order_header.DeliverTime),
-    advance: (rms_order_header.Advance || "").toString(),
-    route: (rms_order_header.Route || "").toString(),
-    service_percentage: (rms_order_header.ServicePercentage || "").toString(),
-    service_amount: (rms_order_header.ServiceAmount || "").toString(),
-    privilege_card: (rms_order_header.PrivilegeCard || "").toString(),
+    advance: (rms_order_header.Advance || '').toString(),
+    route: (rms_order_header.Route || '').toString(),
+    service_percentage: (rms_order_header.ServicePercentage || '').toString(),
+    service_amount: (rms_order_header.ServiceAmount || '').toString(),
+    privilege_card: (rms_order_header.PrivilegeCard || '').toString(),
     privilege_card_discount: (
-      rms_order_header.privilegeCardDiscount || ""
+      rms_order_header.privilegeCardDiscount || ''
     ).toString(),
-    sales_order_no: (rms_order_header.SalesOrderNo || "").toString(),
-    round_off: (rms_order_header.RoundOff || "").toString(),
-    is_print: rms_order_header.isPrint ? "1" : "0",
+    sales_order_no: (rms_order_header.SalesOrderNo || '').toString(),
+    round_off: (rms_order_header.RoundOff || '').toString(),
+    is_print: rms_order_header.isPrint ? '1' : '0',
   };
 }
 
@@ -194,29 +194,29 @@ function formatDateToString(date: Date) {
     DATETIME_FORMAT = f"{DATE_FORMAT} {TIME_FORMAT}"
   */
 
-  var month = "" + (date.getUTCMonth() + 1),
-    day = "" + date.getUTCDate(),
-    hour = "" + date.getUTCHours(),
-    minute = "" + date.getUTCMinutes(),
-    second = "" + date.getUTCSeconds(),
-    millisecond = "" + date.getUTCMilliseconds();
+  let month = '' + (date.getUTCMonth() + 1),
+    day = '' + date.getUTCDate(),
+    hour = '' + date.getUTCHours(),
+    minute = '' + date.getUTCMinutes(),
+    second = '' + date.getUTCSeconds(),
+    millisecond = '' + date.getUTCMilliseconds();
 
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
-  if (hour.length < 2) hour = "0" + hour;
-  if (minute.length < 2) minute = "0" + minute;
-  if (second.length < 2) second = "0" + second;
-  if (millisecond.length < 3) millisecond = "0" + millisecond;
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+  if (hour.length < 2) hour = '0' + hour;
+  if (minute.length < 2) minute = '0' + minute;
+  if (second.length < 2) second = '0' + second;
+  if (millisecond.length < 3) millisecond = '0' + millisecond;
 
   return (
-    [date.getFullYear(), month, day].join("-") +
-    " " +
-    [hour, minute, second].join(":") +
-    "." +
+    [date.getFullYear(), month, day].join('-') +
+    ' ' +
+    [hour, minute, second].join(':') +
+    '.' +
     millisecond
   );
 }
 
 export function getRMSDBIndex() {
-  return parseInt(process.env.RMS_DB_IDX!);
+  return parseInt(process.env['RMS_DB_IDX'] ?? '0');
 }

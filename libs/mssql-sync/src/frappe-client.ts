@@ -1,8 +1,8 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance } from 'axios';
 
 export interface GetListParams {
   doctype: string;
-  filters?: any;
+  filters?: unknown;
   fields?: string[];
   limit_page_length?: number;
   order_by?: string;
@@ -10,13 +10,13 @@ export interface GetListParams {
 
 export interface InsertParams {
   doctype: string;
-  doc: any;
+  doc: unknown;
 }
 
 export interface UpdateParams {
   doctype: string;
   name: string;
-  doc: any;
+  doc: unknown;
 }
 
 export default class FrappeClient {
@@ -24,35 +24,37 @@ export default class FrappeClient {
 
   constructor() {
     this.axios = axios.create({
-      baseURL: process.env.FRAPPE_HOST,
+      baseURL: process.env['FRAPPE_HOST'] ?? '',
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
         Authorization: `Basic ${Buffer.from(
-          `${process.env.FRAPPE_API_KEY}:${process.env.FRAPPE_API_SECRET}`
-        ).toString("base64")}`,
+          `${process.env['FRAPPE_API_KEY'] ?? ''}:${
+            process.env['FRAPPE_API_SECRET'] ?? ''
+          }`
+        ).toString('base64')}`,
       },
     });
   }
 
   async authenticate() {
     await this.axios
-      .get("/api/method/frappe.auth.get_logged_user")
+      .get('/api/method/frappe.auth.get_logged_user')
       .catch((err) => {
         return Promise.reject({
-          message: "Frappe Authentication failed",
+          message: 'Frappe Authentication failed',
           err,
         });
       });
-    this.log("✅", "Frappe Authentication successful");
+    this.log('✅', 'Frappe Authentication successful');
   }
 
   async ping() {
-    const response = await this.axios.get("/api/method/ping");
-    this.log("✅", response.data.message);
+    const response = await this.axios.get('/api/method/ping');
+    this.log('✅', response.data.message);
   }
 
   async get_list(params: GetListParams) {
-    const response = await this.axios.get("/api/resource/" + params.doctype, {
+    const response = await this.axios.get('/api/resource/' + params.doctype, {
       params: {
         filters: JSON.stringify(params.filters),
         fields: JSON.stringify(params.fields),
@@ -66,10 +68,10 @@ export default class FrappeClient {
   async insert(params: InsertParams) {
     // POST axios JSON
     const r = await this.axios
-      .post("/api/resource/" + params.doctype, params.doc)
+      .post('/api/resource/' + params.doctype, params.doc)
       .catch((err) => {
         return Promise.reject({
-          message: "Frappe Insert failed",
+          message: 'Frappe Insert failed',
           err,
         });
       });
@@ -80,10 +82,10 @@ export default class FrappeClient {
   async update(params: UpdateParams) {
     // PUT axios JSON
     const r = await this.axios
-      .put("/api/resource/" + params.doctype + "/" + params.name, params.doc)
+      .put('/api/resource/' + params.doctype + '/' + params.name, params.doc)
       .catch((err) => {
         return Promise.reject({
-          message: "Frappe Update failed",
+          message: 'Frappe Update failed',
           err,
         });
       });
@@ -91,12 +93,12 @@ export default class FrappeClient {
     return r.data;
   }
 
-  async post_cmd(cmd: string, params: any) {
+  async post_cmd(cmd: string, params: unknown) {
     const r = await this.axios
-      .post("/api/method/" + cmd, params)
+      .post('/api/method/' + cmd, params)
       .catch((err) => {
         return Promise.reject({
-          message: "Frappe post_cmd failed",
+          message: 'Frappe post_cmd failed',
           err,
         });
       });
@@ -104,7 +106,7 @@ export default class FrappeClient {
     return r.data.message;
   }
 
-  log(...content: any[]) {
-    console.log("FrappeClient:", ...content);
+  log(...content: unknown[]) {
+    console.log('FrappeClient:', ...content);
   }
 }

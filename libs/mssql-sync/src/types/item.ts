@@ -45,25 +45,25 @@ export interface FrappeRMSItem {
 
 export function RMSItemToFrappeRMSItem(item: DBRMSItem): FrappeRMSItem {
   return {
-    doctype: "RMS Item",
+    doctype: 'RMS Item',
     item_id: item.ItemID.toString(),
     item_name: item.Name,
     code: item.Code,
     uom: item.Uom.toString(),
-    inactive: item.Inactive ? "1" : "0",
+    inactive: item.Inactive ? '1' : '0',
     rate: item.Rate.toString(),
     description_in_ol: item.DescriptionInOL,
     sub_course: item.SubCourse.toString(),
-    is_restaurant_item: item.IsRestaurantItem ? "1" : "0",
-    stock_item: item.StockItem ? "1" : "0",
+    is_restaurant_item: item.IsRestaurantItem ? '1' : '0',
+    stock_item: item.StockItem ? '1' : '0',
     kitchen: item.kitchen.toString(),
-    have_more_item: item.HaveMoreItem ? "1" : "0",
-    show_modifiers: item.ShowModifiers ? "1" : "0",
+    have_more_item: item.HaveMoreItem ? '1' : '0',
+    show_modifiers: item.ShowModifiers ? '1' : '0',
     tax_group: item.TaxGroup.toString(),
-    tax_inclusive: item.TaxInclusive ? "1" : "0",
+    tax_inclusive: item.TaxInclusive ? '1' : '0',
     sp_rate: item.spRate.toString(),
     inventory_id: item.InventoryID.toString(),
     item_remarks: item.ItemRemarks,
-    load_modifier: item.LoadModifier ? "1" : "0",
+    load_modifier: item.LoadModifier ? '1' : '0',
   };
 }

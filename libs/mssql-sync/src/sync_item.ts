@@ -1,8 +1,8 @@
-import SyncBase from "./sync_base";
-import { dbSQL } from "./db";
-import { DBRMSItem, FrappeRMSItem, RMSItemToFrappeRMSItem } from "./types";
+import SyncBase from './sync_base';
+import { dbSQL } from './db';
+import { DBRMSItem, FrappeRMSItem, RMSItemToFrappeRMSItem } from './types';
 
-import * as CLIProgress from "cli-progress";
+import * as CLIProgress from 'cli-progress';
 
 export default class SyncItems extends SyncBase {
   override async syncAll() {
@@ -38,8 +38,8 @@ export default class SyncItems extends SyncBase {
       );
     });
 
-    console.log("To Create:", items_to_create.length);
-    console.log("To Update:", items_to_update.length);
+    console.log('To Create:', items_to_create.length);
+    console.log('To Update:', items_to_update.length);
 
     await this.createRMSItems(items_to_create);
     await this.updateItems(items_to_update);
@@ -57,7 +57,7 @@ export default class SyncItems extends SyncBase {
       const doc = RMSItemToFrappeRMSItem(rms_item);
 
       await this.client.insert({
-        doctype: "RMS Item",
+        doctype: 'RMS Item',
         doc: doc,
       });
 
@@ -66,7 +66,7 @@ export default class SyncItems extends SyncBase {
     progressBar.stop();
   }
 
-  async updateItems(rms_items: any[]) {
+  async updateItems(rms_items: DBRMSItem[]) {
     const progressBar = new CLIProgress.SingleBar(
       {},
       CLIProgress.Presets.shades_classic
@@ -75,8 +75,8 @@ export default class SyncItems extends SyncBase {
 
     for (const rms_item of rms_items) {
       const doc = RMSItemToFrappeRMSItem(rms_item);
-      const frappeItem: FrappeRMSItem = await this.client.update({
-        doctype: "RMS Item",
+      await this.client.update({
+        doctype: 'RMS Item',
         name: doc.item_id,
         doc: doc,
       });
@@ -93,9 +93,9 @@ export default class SyncItems extends SyncBase {
 
   async getAllItemsFromFrappe() {
     const items = await this.client.get_list({
-      doctype: "RMS Item",
+      doctype: 'RMS Item',
       filters: {},
-      fields: ["*"],
+      fields: ['*'],
       limit_page_length: 999999,
     });
     return items;

@@ -1,7 +1,7 @@
-import SyncBase from "./sync_base";
-import { dbSQL } from "./db";
-import { DBRMSOrderToFrappeRMSOrder, DBRMSOrder, getRMSDBIndex } from "./types";
-import * as CLIProgress from "cli-progress";
+import SyncBase from './sync_base';
+import { dbSQL } from './db';
+import { DBRMSOrderToFrappeRMSOrder, DBRMSOrder, getRMSDBIndex } from './types';
+import * as CLIProgress from 'cli-progress';
 
 /**
  * @Date MSSQL Comparison is done as >= and not > because
@@ -19,7 +19,7 @@ export default class SyncOrders extends SyncBase {
     const totalOrdersToSync = await this.getNumberOfOrdersToSync(lastOrder);
     let totalOrdersSynced = 0;
 
-    console.log("No of Orders to Create:", totalOrdersToSync);
+    console.log('No of Orders to Create:', totalOrdersToSync);
     const progressBar = new CLIProgress.SingleBar(
       {},
       CLIProgress.Presets.shades_classic
@@ -29,14 +29,16 @@ export default class SyncOrders extends SyncBase {
     while (totalOrdersSynced < totalOrdersToSync) {
       const rms_orders = await this.getAllOrdersFromDB(lastOrder);
       if (rms_orders.length === 0) {
-        console.warn("No more orders to sync, even though totalOrdersSynced < totalOrdersToSync");
+        console.warn(
+          'No more orders to sync, even though totalOrdersSynced < totalOrdersToSync'
+        );
         break;
       }
       for (const rms_order of rms_orders) {
         const frappe_order = DBRMSOrderToFrappeRMSOrder(rms_order);
 
         await this.client.insert({
-          doctype: "RMS Order",
+          doctype: 'RMS Order',
           doc: frappe_order,
         });
 
@@ -52,36 +54,36 @@ export default class SyncOrders extends SyncBase {
 
   async getLastSyncedOrderDetails(): Promise<LastSyncedOrder | null> {
     const lastOrder = await this.client.get_list({
-      doctype: "RMS Order",
-      fields: ["name", "date", "order_no", "db_index"],
+      doctype: 'RMS Order',
+      fields: ['name', 'date', 'order_no', 'db_index'],
       filters: {
         db_index: getRMSDBIndex(),
       },
       limit_page_length: 1,
-      order_by: "order_no desc",
+      order_by: 'order_no desc',
     });
 
     if (lastOrder.length === 0) {
-      return null
+      return null;
     }
 
     const order = lastOrder[0];
     // The returned millisecond can have a precision of 6 digits
     // which is unsupported by MSSQL. So we need to truncate it.
     let d = order.date;
-    if (d.split(".").length > 1 && d.split(".")[1].length > 3) {
-      d = d.split(".")[0] + "." + d.split(".")[1].substr(0, 3);
+    if (d.split('.').length > 1 && d.split('.')[1].length > 3) {
+      d = d.split('.')[0] + '.' + d.split('.')[1].substr(0, 3);
     }
 
     return {
       date: d,
       orderNo: order.order_no,
-    }
-
+    };
   }
 
-  async getNumberOfOrdersToSync(lastOrder: LastSyncedOrder | null): Promise<number> {
-
+  async getNumberOfOrdersToSync(
+    lastOrder: LastSyncedOrder | null
+  ): Promise<number> {
     let sql = `
     SELECT
       COUNT(*) AS computed
@@ -104,8 +106,6 @@ export default class SyncOrders extends SyncBase {
     lastOrder: LastSyncedOrder | null,
     limit = 100
   ): Promise<DBRMSOrder[]> {
-
-
     let sql = `
     SELECT
       TOP ${limit}
@@ -122,10 +122,7 @@ export default class SyncOrders extends SyncBase {
 
     sql += ` ORDER BY OrderNo ASC`;
 
-    const orders: DBRMSOrder[] = await dbSQL(
-      sql,
-      lastOrder,
-    );
+    const orders: DBRMSOrder[] = await dbSQL(sql, lastOrder);
 
     // Load Order Details
     const orderIds = orders.map((x) => x.OrderNo);
@@ -138,7 +135,7 @@ export default class SyncOrders extends SyncBase {
       FROM
         [dbo].[RMSOrderDetails]
       WHERE
-        OrderNo IN (${orderIds.join(",")})
+        OrderNo IN (${orderIds.join(',')})
       `
     );
 
