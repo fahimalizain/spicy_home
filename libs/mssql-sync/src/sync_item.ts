@@ -2,10 +2,10 @@ import SyncBase from "./sync_base";
 import { dbSQL } from "./db";
 import { DBRMSItem, FrappeRMSItem, RMSItemToFrappeRMSItem } from "./types";
 
-import CLIProgress from "cli-progress";
+import * as CLIProgress from "cli-progress";
 
 export default class SyncItems extends SyncBase {
-  async syncAll() {
+  override async syncAll() {
     const db_rows = await this.getAllItemsFromDB();
     const frappe_rows = await this.getAllItemsFromFrappe();
 
@@ -13,12 +13,11 @@ export default class SyncItems extends SyncBase {
   }
 
   async syncItems(db_rows: DBRMSItem[], frappe_rows: FrappeRMSItem[]) {
-    const db_item_ids = db_rows.map((x) => x.ItemID);
     const frappe_item_ids = frappe_rows.map((x) => parseInt(x.item_id));
     const frappe_item_id_map = frappe_rows.reduce((acc, x) => {
       acc[parseInt(x.item_id)] = x;
       return acc;
-    }, {});
+    }, {} as Record<number, FrappeRMSItem>);
 
     const items_to_create = db_rows.filter(
       (x) => !frappe_item_ids.includes(x.ItemID)
@@ -33,6 +32,8 @@ export default class SyncItems extends SyncBase {
       return (
         x.Name !== frappe_item.item_name ||
         x.DescriptionInOL !== frappe_item.description_in_ol ||
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         x.Rate != frappe_item.rate // != is intentional
       );
     });
@@ -55,7 +56,7 @@ export default class SyncItems extends SyncBase {
       // TODO: ItemImage which is a Binary Buffer
       const doc = RMSItemToFrappeRMSItem(rms_item);
 
-      const frappeItem: FrappeRMSItem = await this.client.insert({
+      await this.client.insert({
         doctype: "RMS Item",
         doc: doc,
       });

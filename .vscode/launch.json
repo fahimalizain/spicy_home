@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Sync MSSQL",
+            "runtimeExecutable": "npx",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "nx",
+                "sync",
+                "mssql-sync"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
+    ],
+    "compounds": []
+}

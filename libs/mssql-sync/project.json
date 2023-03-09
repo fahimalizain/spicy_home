@@ -22,7 +22,7 @@
       }
     },
     "sync": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "node --nolazy -r ts-node/register/transpile-only ./src/index.ts"

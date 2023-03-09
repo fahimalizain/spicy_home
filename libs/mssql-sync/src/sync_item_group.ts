@@ -2,7 +2,7 @@ import SyncBase from "./sync_base";
 import { dbSQL } from "./db";
 import { DBRMSItem, FrappeRMSItem, RMSItemToFrappeRMSItem } from "./types";
 
-import CLIProgress from "cli-progress";
+import * as CLIProgress from "cli-progress";
 
 export default class SyncItemGroups extends SyncBase {
     async syncAll() {

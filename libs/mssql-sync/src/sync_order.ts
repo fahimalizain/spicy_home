@@ -1,7 +1,7 @@
 import SyncBase from "./sync_base";
 import { dbSQL } from "./db";
 import { DBRMSOrderToFrappeRMSOrder, DBRMSOrder, getRMSDBIndex } from "./types";
-import CLIProgress from "cli-progress";
+import * as CLIProgress from "cli-progress";
 
 /**
  * @Date MSSQL Comparison is done as >= and not > because
@@ -14,7 +14,7 @@ interface LastSyncedOrder {
 }
 
 export default class SyncOrders extends SyncBase {
-  async syncAll() {
+  override async syncAll() {
     let lastOrder = await this.getLastSyncedOrderDetails();
     const totalOrdersToSync = await this.getNumberOfOrdersToSync(lastOrder);
     let totalOrdersSynced = 0;
@@ -102,7 +102,7 @@ export default class SyncOrders extends SyncBase {
 
   async getAllOrdersFromDB(
     lastOrder: LastSyncedOrder | null,
-    limit: number = 100
+    limit = 100
   ): Promise<DBRMSOrder[]> {
 
 

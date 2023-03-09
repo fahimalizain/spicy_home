@@ -3,7 +3,7 @@ import FrappeClient from "./frappe-client";
 import SyncItems from "./sync_item";
 import SyncOrders from "./sync_order";
 import SyncItemGroups from "./sync_item_group";
-const { connectToDB } = require("./db");
+import { connectToDB } from "./db";
 
 dotenv.config();
 

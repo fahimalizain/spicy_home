@@ -1,13 +1,13 @@
-import sql from "mssql";
+import * as mssql from "mssql";
 
 export async function connectToDB() {
-  await sql
+  await mssql
     .connect({
-      server: process.env.MSSQL_SERVER,
-      port: parseInt(process.env.MSSQL_PORT || "1433"),
-      database: process.env.MSSQL_DATABASE,
-      user: process.env.MSSQL_USER,
-      password: process.env.MSSQL_PWD,
+      server: process.env["MSSQL_SERVER"],
+      port: parseInt(process.env["MSSQL_PORT"] || "1433"),
+      database: process.env["MSSQL_DATABASE"],
+      user: process.env["MSSQL_USER"],
+      password: process.env["MSSQL_PWD"],
       trustServerCertificate: true,
     })
     .catch((err: Error) => {
@@ -19,7 +19,7 @@ export async function connectToDB() {
 }
 
 export async function dbSQL(query: string, params: object | null = null) {
-  const request = new sql.Request();
+  const request = new mssql.Request();
   if (params) {
     Object.keys(params).forEach((key) => {
       request.input(key, params[key]);
@@ -30,4 +30,4 @@ export async function dbSQL(query: string, params: object | null = null) {
   return r.recordset;
 }
 
-export const sql = sql;
+export const sql = mssql;
