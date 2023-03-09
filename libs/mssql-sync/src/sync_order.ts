@@ -98,7 +98,10 @@ export default class SyncOrders extends SyncBase {
       `;
     }
 
-    const result = await dbSQL(sql, lastOrder);
+    const result = await dbSQL(
+      sql,
+      (lastOrder ?? {}) as Record<string, unknown>
+    );
     return result[0].computed;
   }
 
@@ -122,7 +125,10 @@ export default class SyncOrders extends SyncBase {
 
     sql += ` ORDER BY OrderNo ASC`;
 
-    const orders: DBRMSOrder[] = await dbSQL(sql, lastOrder);
+    const orders: DBRMSOrder[] = await dbSQL(
+      sql,
+      (lastOrder ?? {}) as Record<string, unknown>
+    );
 
     // Load Order Details
     const orderIds = orders.map((x) => x.OrderNo);
