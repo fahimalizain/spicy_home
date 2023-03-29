@@ -32,8 +32,8 @@ def execute(filters=None):
 
         row = frappe._dict(
             period=period.label,
-            average_spent=get_average_spent(period.from_date, period.to_date),
-            prev_year_average_spent=get_average_spent(
+            total_revenue=get_sales_revenue(period.from_date, period.to_date),
+            prev_year_revenue=get_sales_revenue(
                 prev_year_period.from_date, prev_year_period.to_date),
         )
         data.append(row)
@@ -46,14 +46,14 @@ def execute(filters=None):
             "width": 100
         },
         {
-            "fieldname": "average_spent",
-            "label": "Average Spent",
+            "fieldname": "total_revenue",
+            "label": "Total Revenue",
             "fieldtype": "Currency",
             "width": 100
         },
         {
-            "fieldname": "prev_year_average_spent",
-            "label": "Previous Year Average Spent",
+            "fieldname": "prev_year_revenue",
+            "label": "Previous Year Revenue",
             "fieldtype": "Currency",
             "width": 100
         },
@@ -65,27 +65,23 @@ def execute(filters=None):
         return 0
 
     chart = frappe._dict(
-        title="Average Spent Per Order",
+        title="Revenue",
         data={
             "labels": [x.period for x in data],
             "datasets": [
                 {
-                    "name": "Average Spent",
-                    "values": [x.average_spent for x in data],
+                    "name": "Total Revenue",
+                    "values": [x.total_revenue for x in data],
                     "chartType": "line",
                 },
                 {
-                    "name": "Previous Year Average Spent",
-                    "values": [x.prev_year_average_spent for x in data],
+                    "name": "Previous Year Revenue",
+                    "values": [x.prev_year_revenue for x in data],
                     "chartType": "line",
                 },
                 {
                     "name": "% Change",
-                    "values": [
-                        _get_percentage_change(
-                            x.prev_year_average_spent, x.average_spent)
-                        for x in data
-                    ],
+                    "values": [_get_percentage_change(x.prev_year_revenue, x.total_revenue) for x in data],
                     "chartType": "bar",
                 }
             ]
@@ -101,38 +97,32 @@ def execute(filters=None):
         # },
     )
 
-    average_spent_amounts = [flt(x.average_spent)
-                             for x in data if flt(x.average_spent) > 0]
-    prev_year_amounts = [flt(x.prev_year_average_spent)
-                         for x in data if flt(x.prev_year_average_spent) > 0]
-    average_spent = flt(
-        sum([x for x in average_spent_amounts]) / len(average_spent_amounts), 2)
-    prev_year_average_spent = flt(
-        sum([x for x in prev_year_amounts]) / len(prev_year_amounts), 2)
+    total_revenue = flt(sum([flt(x.total_revenue) for x in data]), 2)
+    prev_year_revenue = flt(sum([flt(x.prev_year_revenue) for x in data]), 2)
 
     report_summary = [
-        {"value": average_spent, "label": "Average Spent",
+        {"value": total_revenue, "label": "Total Revenue",
             "datatype": "Currency", "currency": "SAR"},
         {"type": "separator", "value": "-"},
-        {"value": prev_year_average_spent, "label": "Prev. Year",
+        {"value": prev_year_revenue, "label": "Prev. Year",
             "datatype": "Currency", "currency": "SAR"},
-        {"type": "separator", "value": "-"},
         {"value": _get_percentage_change(
-            prev_year_average_spent, average_spent), "label": "% Change", }
+            prev_year_revenue, total_revenue), "label": "% Change", },
     ]
 
     return columns, data, None, chart, report_summary
 
 
-def get_average_spent(from_date, to_date):
+def get_sales_revenue(from_date, to_date):
     return frappe.db.sql("""
         SELECT
-            ROUND(SUM(sales_invoice.grand_total) / COUNT(sales_invoice.name), 2) AS average_spent
+            ROUND(SUM(sales_invoice.grand_total), 2) AS total_revenue
         FROM
             `tabSales Invoice` sales_invoice
         WHERE
             sales_invoice.posting_date BETWEEN %(from_date)s AND %(to_date)s
+            AND sales_invoice.docstatus = 1
     """, {
         "from_date": from_date,
         "to_date": to_date
-    }, as_dict=1)[0].get("average_spent")
+    }, as_dict=1)[0].get("total_revenue")
