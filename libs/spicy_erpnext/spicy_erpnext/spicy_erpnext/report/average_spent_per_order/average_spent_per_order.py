@@ -106,9 +106,9 @@ def execute(filters=None):
     prev_year_amounts = [flt(x.prev_year_average_spent)
                          for x in data if flt(x.prev_year_average_spent) > 0]
     average_spent = flt(
-        sum([x for x in average_spent_amounts]) / len(average_spent_amounts), 2)
+        sum([x for x in average_spent_amounts]) / len(average_spent_amounts), 2) if len(average_spent_amounts) > 0 else 0
     prev_year_average_spent = flt(
-        sum([x for x in prev_year_amounts]) / len(prev_year_amounts), 2)
+        sum([x for x in prev_year_amounts]) / len(prev_year_amounts), 2) if len(prev_year_amounts) > 0 else 0
 
     report_summary = [
         {"value": average_spent, "label": "Average Spent",
