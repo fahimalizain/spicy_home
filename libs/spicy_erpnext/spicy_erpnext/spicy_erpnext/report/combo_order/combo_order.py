@@ -21,14 +21,14 @@ def get_columns(combo_type):
             "label": "Item 1",
             "fieldtype": "Link",
             "options": "Item",
-            "width": 150
+            "width": 70
         },
         {
             "fieldname": "ItemID2",
             "label": "Item 2",
             "fieldtype": "Link",
             "options": "Item",
-            "width": 150
+            "width": 70
         }
     ]
 
@@ -38,7 +38,7 @@ def get_columns(combo_type):
             "label": "Item 3",
             "fieldtype": "Link",
             "options": "Item",
-            "width": 150
+            "width": 70
         })
 
     if combo_type == "Quartet":
@@ -48,9 +48,20 @@ def get_columns(combo_type):
                 "label": "Item 4",
                 "fieldtype": "Link",
                 "options": "Item",
-                "width": 150
+                "width": 70
             }
         ])
+
+    # Add ItemID1Name, ItemID2Name, ItemID3Name, ItemID4Name
+    for i in range(len(columns)):
+        columns.insert(
+            (i*2) + 1,
+            {
+                "fieldname": f"ItemID{i + 1}Name",
+                "label": "Name",
+                "fieldtype": "Data",
+                "width": 100
+            })
 
     columns.append({
         "fieldname": "Frequency",
@@ -166,11 +177,25 @@ def get_frequent_combos(from_date, to_date, combo_type):
 
 
 def fill_item_names(data):
+    item_ids = set()
     for row in data:
         for i in range(1, 5):
             item_id = row.get(f"ItemID{i}")
             if not item_id:
                 continue
 
-            row[f"ItemID{i}"] = frappe.db.get_value(
-                "Item", item_id, "item_name")
+            item_ids.add(item_id)
+
+    item_names = frappe.get_all("Item", filters={
+        "item_code": ("in", list(item_ids))
+    }, fields=["item_code", "item_name"])
+
+    item_names = {row.item_code: row.item_name for row in item_names}
+
+    for row in data:
+        for i in range(1, 5):
+            item_id = row.get(f"ItemID{i}")
+            if not item_id:
+                continue
+
+            row[f"ItemID{i}Name"] = f"{item_names[item_id]}"
