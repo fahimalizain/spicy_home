@@ -123,7 +123,7 @@ def get_target_sales(from_date, to_date, periodicity):
     elif periodicity == 'Half-Yearly':
         div_factor = 2
 
-    return frappe.db.sql(
+    return flt(frappe.db.sql(
         f"""
     WITH sales_last_year AS (
         SELECT
@@ -140,13 +140,19 @@ def get_target_sales(from_date, to_date, periodicity):
         FROM
             `tabSales Invoice`
         WHERE
-            `tabSales Invoice`.posting_date BETWEEN %(from_date)s AND %(to_date)s
+            `tabSales Invoice`.posting_date BETWEEN DATE_SUB(%(from_date)s, INTERVAL 1 YEAR) AND DATE_SUB(%(to_date)s, INTERVAL 1 YEAR)
             AND `tabSales Invoice`.docstatus = 1
     )
     SELECT
-        sl.total_revenue * (1 + (
-            (sl.total_revenue - sl2.total_revenue) / sl2.total_revenue
-        ) / {div_factor}) as target_sales
+        IF(
+            sl2.total_revenue != 0 AND sl2.total_revenue < sl.total_revenue,
+            
+            sl.total_revenue * (1 + (
+                (sl.total_revenue - sl2.total_revenue) / sl2.total_revenue
+            ) / {div_factor}),
+            
+            sl.total_revenue
+        ) as target_sales
     FROM
         sales_last_year as sl,
         sales_last2_year as sl2;
@@ -155,7 +161,7 @@ def get_target_sales(from_date, to_date, periodicity):
         {"from_date": from_date, "to_date": to_date},
         as_dict=1,
         debug=0
-    )[0].target_sales
+    )[0].target_sales, 2)
 
 
 def _get_percentage_change(prev_year, current):
