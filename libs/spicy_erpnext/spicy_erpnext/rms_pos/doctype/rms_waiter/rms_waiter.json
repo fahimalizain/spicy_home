@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:waiter_id",
+ "creation": "2023-04-04 09:13:26.613140",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "waiter_id",
+  "waiter_name",
+  "code",
+  "password",
+  "branch"
+ ],
+ "fields": [
+  {
+   "fieldname": "waiter_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Waiter ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "waiter_name",
+   "fieldtype": "Data",
+   "label": "Waiter Name"
+  },
+  {
+   "fieldname": "code",
+   "fieldtype": "Data",
+   "label": "Code"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Data",
+   "label": "Password"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Data",
+   "label": "Branch"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-04-04 09:16:54.514116",
+ "modified_by": "Administrator",
+ "module": "RMS POS",
+ "name": "RMS Waiter",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
