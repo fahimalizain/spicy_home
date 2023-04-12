@@ -16,6 +16,7 @@ fixtures = [
                 "Item Group-rms_kind",
                 "Item-rms_item",
                 "Sales Invoice-rms_order",
+                "Sales Invoice-waiter",
             ]]]
     }
 ]

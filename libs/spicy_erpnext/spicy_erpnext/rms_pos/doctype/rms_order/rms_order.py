@@ -39,8 +39,10 @@ class RMSOrder(Document):
         doc.customer = "Cash Customer"
         doc.is_pos = 1
         doc.disable_rounded_total = 1
-        doc.rms_order = self.name
         doc.discount_amount = flt(self.discount_amount)
+
+        doc.rms_order = self.name
+        doc.waiter = self.waiter
 
         for item_row in self.order_items:
             doc.append("items", {
