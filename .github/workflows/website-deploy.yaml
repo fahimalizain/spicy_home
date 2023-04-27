@@ -1,0 +1,34 @@
+name: Deploy to Personal Server
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npx nx export website-next
+
+      - name: Deploy to server
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          SERVER_PATH: ${{ secrets.SERVER_PATH }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+        run: |
+          echo "$DEPLOY_KEY" > deploy_key.pem
+          chmod 600 deploy_key.pem
+          rsync -avz --delete -e 'ssh -i deploy_key.pem -o StrictHostKeyChecking=no -p $SERVER_PORT' ./dist/apps/website-next/ $SERVER_USER@$SERVER_HOST:$SERVER_PATH
+          rm -f deploy_key.pem
