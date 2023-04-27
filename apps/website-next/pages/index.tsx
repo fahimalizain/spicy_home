@@ -12,7 +12,7 @@ export function Index() {
   return (
     <div className={styles.page}>
       <LandingComponent />
-      <div>
+      <div className={'flex flex-col items-stretch md:px-20 lg:px-40'}>
         <BestSellersComponent />
         <AboutComponent />
         <ServicesComponent />
