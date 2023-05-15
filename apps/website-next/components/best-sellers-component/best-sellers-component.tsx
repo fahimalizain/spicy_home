@@ -64,7 +64,7 @@ export function BestSellersComponent(props: BestSellersComponentProps) {
     {
       imgSrc: '/images/food.jpg',
       itemPrice: '15.00SAR',
-      itemName: 'Gourmet lamb vindaloo',
+      itemName: 'Gourmet lamb',
       itemDescription:
         'Lorem ipsum dolor sit, amet consectetur ipsum id debitis tempora.',
     },
