@@ -46,7 +46,7 @@ export function FooterComponent(props: FooterComponentProps) {
             {
               src: '/images/footer-whatsapp-icon.svg',
               alt: 'whatsapp',
-              link: 'https://wa.me/966123456789',
+              link: 'https://wa.me/966533243439',
             },
             {
               src: '/images/footer-google-icon.svg',

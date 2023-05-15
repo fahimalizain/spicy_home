@@ -15,7 +15,7 @@ const socialMediaLinks: SocialMedia[] = [
     name: 'WhatsApp',
     icon: '/images/contact-whtsapp-icon.svg',
     hoverIcon: '/images/contact-hover-whtsap-icon.svg',
-    link: 'https://wa.me/1234567890',
+    link: 'https://wa.me/966533243439',
   },
   {
     name: 'Instagram',
@@ -66,7 +66,7 @@ export function ContactComponent(props: ContactComponentProps) {
               className=" w-4  "
               alt="food"
             ></img>
-            <h1 className="text-sm	pl-8">011 235 7926</h1>
+            <h1 className="text-sm	pl-8">+96 6112357926</h1>
           </div>
           <div className="flex flex-row items-center  text-center">
             <img
