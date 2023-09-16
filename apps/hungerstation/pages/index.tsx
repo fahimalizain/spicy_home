@@ -52,7 +52,6 @@ export function Index() {
     );
   }, [ordersResponse, selectedStatuses]);
 
-  console.info('Filtered Orders', filteredOrders);
   return (
     <div
       className="font-sans wrapper"
@@ -68,7 +67,7 @@ export function Index() {
         <OrderDialog
           isOpen={isDialogOpen}
           onClose={() => setIsDialogOpen(false)}
-          order={selectedOrder}
+          meta={selectedOrder}
         />
       </div>
       <div className="container pt-12 text-black">
