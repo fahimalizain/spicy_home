@@ -1,12 +1,6 @@
 import React from 'react';
 import { Transition } from '@headlessui/react';
-
-type Order = {
-  status: string;
-  order_id: string;
-  subtotal: string;
-  orderList: { itemName: string; qty: number; price: number }[];
-};
+import { Order } from '../swr/types';
 
 interface Props {
   isOpen: boolean;
@@ -53,13 +47,13 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, order }) => {
               <h1 className="text-lg">Order Details</h1>
 
               <ul className="mt-5 ">
-                {order.orderList.map((item, index) => (
+                {order.items.map((item, index) => (
                   <li
                     key={index}
                     className="my-1 xl:text-sm flex w-80 justify-between"
                   >
                     <span>{item.qty} x</span> <span>{item.itemName}</span>
-                    <span>SAR {item.price}</span>
+                    <span>SAR {item.rate}</span>
                   </li>
                 ))}
               </ul>

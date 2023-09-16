@@ -5,13 +5,7 @@ import React from 'react';
 import FilterDropdown from '../components/FilterDropdown';
 import { OrderDialog } from '../components/OrderDialog';
 import { FaSearch } from 'react-icons/fa';
-
-interface Order {
-  status: string;
-  order_id: string;
-  subtotal: string;
-  // Add other fields as needed
-}
+import { Order } from '../swr/types';
 
 export function Index() {
   const styles: { [key: string]: { text: string; bg: string } } = {
@@ -24,30 +18,30 @@ export function Index() {
       status: 'delivered',
       order_id: '123',
       subtotal: '50.00',
-      orderList: [
-        { itemName: 'Garlic Naan', qty: 2, price: '15.00' },
-        { itemName: 'Fried Lentils', qty: 1, price: '20.00' },
+      items: [
+        { itemName: 'Garlic Naan', qty: 2, rate: 15.0, total: 30.0 },
+        { itemName: 'Fried Lentils', qty: 1, rate: 20.0, total: 20.0 },
       ],
     },
     {
       status: 'pending',
       order_id: '124',
       subtotal: '75.00',
-      orderList: [
-        { itemName: 'Garlic Naan', qty: 2, price: '15.00' },
-        { itemName: 'Butter Naan', qty: 1, price: '20.00' },
+      items: [
+        { itemName: 'Garlic Naan', qty: 2, rate: 15, total: 30.0 },
+        { itemName: 'Butter Naan', qty: 1, rate: 20, total: 20.0 },
       ],
     },
     {
       status: 'cancelled',
       order_id: '125',
       subtotal: '100.00',
-      orderList: [
-        { itemName: 'Garlic Naan', qty: 2, price: '15.00' },
-        { itemName: 'Butter Chicken', qty: 1, price: '20.00' },
+      items: [
+        { itemName: 'Garlic Naan', qty: 2, rate: 15, total: 30.0 },
+        { itemName: 'Butter Chicken', qty: 1, rate: 20, total: 20.0 },
       ],
     },
-  ];
+  ] satisfies Order[];
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
