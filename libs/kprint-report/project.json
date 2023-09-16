@@ -1,0 +1,40 @@
+{
+  "name": "kprint-report",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/kprint-report/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/kprint-report",
+        "main": "libs/kprint-report/src/index.ts",
+        "tsConfig": "libs/kprint-report/tsconfig.lib.json",
+        "assets": ["libs/kprint-report/*.md"]
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "kprint-report:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "kprint-report:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/kprint-report/**/*.ts",
+          "libs/kprint-report/package.json"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

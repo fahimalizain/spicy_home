@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@spicy-home/kprint-report": ["libs/kprint-report/src/index.ts"],
       "@spicy-home/test-1": ["libs/test-1/src/index.ts"]
     }
   },

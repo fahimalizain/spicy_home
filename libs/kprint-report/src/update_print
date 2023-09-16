@@ -1,0 +1,39 @@
+USE [SPICYHOME]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_UpdatePrinteQty]    Script Date: 08/09/2023 2:21:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER proc [dbo].[sp_UpdatePrinteQty]
+@orderNo int,
+@Branch int,
+@Period int ,
+@xml xml
+AS
+ 
+
+declare @idoc int  
+declare @Item table(Qty float,SlNo int,orderNo int,Branch int,Period  int) 
+	         
+	                
+exec sp_xml_preparedocument @idoc output, @xml                    
+                    
+insert @Item                    
+(Qty,SlNo,orderNo,Branch,Period)                
+select Qty,SlNo,@orderNo,@Branch,@Period
+from openxml (@idoc, '/DetailsTable/Table1',2)                    
+with                    
+(                                       
+ Qty decimal(9,2) '@Qty' ,          
+ SlNo int '@SlNo'  
+                  
+)                   
+exec sp_xml_removedocument @idoc       
+
+
+
+update t1 set PQty=isnull(Pqty,0)+t2.Qty from RMSOrderDetails t1 
+join @Item t2 on t1.OrderNo=t2.OrderNo and t1.Branch=t2.Branch and t1.Period=t2.Period and t1.SlNo=t2.SlNo
+	
+	 
