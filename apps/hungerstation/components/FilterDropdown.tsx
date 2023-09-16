@@ -1,13 +1,14 @@
 import React from 'react';
 import { Listbox } from '@headlessui/react';
 import { FaChevronDown } from 'react-icons/fa';
+import { OrderStatus } from '../swr/types';
 
 interface FilterDropdownProps {
   selectedStatuses: string[];
-  handleCheckboxChange: (status: string) => void;
+  handleCheckboxChange: (status: OrderStatus) => void;
 }
 
-const allStatuses = ['delivered', 'pending', 'cancelled'];
+const allStatuses: OrderStatus[] = ['DELIVERED', 'CANCELLED', 'IN_PROGRESS'];
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
   selectedStatuses,

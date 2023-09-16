@@ -1,6 +1,20 @@
+export type OrderStatus = 'DELIVERED' | 'CANCELLED' | 'IN_PROGRESS';
+
+export type OrderMeta = {
+  orderId: string;
+  globalEntityId: string;
+  vendorId: string;
+  vendorName: string;
+  orderStatus: OrderStatus;
+  placedTimestamp: string;
+  subtotal: number;
+  billableStatus: unknown;
+  billing: unknown;
+};
+
 export type Order = {
-  status: string;
-  order_id: string;
+  orderStatus: OrderStatus;
+  orderId: string;
   subtotal: string;
   items: OrderItem[];
 };

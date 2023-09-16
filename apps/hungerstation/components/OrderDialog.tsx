@@ -1,11 +1,11 @@
 import React from 'react';
 import { Transition } from '@headlessui/react';
-import { Order } from '../swr/types';
+import { Order, OrderMeta } from '../swr/types';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  order: Order | null;
+  order: OrderMeta | null;
 }
 
 export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, order }) => {
@@ -25,7 +25,7 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, order }) => {
           {order ? (
             <>
               <div className="flex justify-between">
-                <h1 className="text-4xl font-bold">#{order.order_id}</h1>{' '}
+                <h1 className="text-4xl font-bold">#{order.orderId}</h1>{' '}
                 <button
                   className="uppercase text-sm text-slate-500 pl-10 py-5"
                   onClick={onClose}
@@ -37,10 +37,10 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, order }) => {
               <h1 className="py-4 uppercase text-[10px] font-bold">
                 <span
                   className={`rounded-md tracking-wide p-[5px] ${
-                    styles[order.status].text
-                  } ${styles[order.status].bg}`}
+                    styles[order.orderStatus].text
+                  } ${styles[order.orderStatus].bg}`}
                 >
-                  {order.status}
+                  {order.orderStatus}
                 </span>
               </h1>
               <hr />
@@ -62,7 +62,7 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, order }) => {
                 <h3>Subtotal:</h3>
                 <h3>SAR {order.subtotal}</h3>
               </div>
-              {order.status === 'pending' && (
+              {order.orderStatus === 'pending' && (
                 <button className="w-full mt-8 text-center uppercase p-5 bg-blue-600 rounded-lg text-white">
                   Kitchen Print
                 </button>
