@@ -5,60 +5,38 @@ import React from 'react';
 import FilterDropdown from '../components/FilterDropdown';
 import { OrderDialog } from '../components/OrderDialog';
 import { FaSearch } from 'react-icons/fa';
-import { Order } from '../swr/types';
+import { OrderMeta, OrderStatus } from '../swr/types';
+import { useOrders } from '../swr/list-orders/hook';
 
 export function Index() {
-  const styles: { [key: string]: { text: string; bg: string } } = {
-    delivered: { text: 'text-green-500', bg: 'bg-green-100' },
-    pending: { text: 'text-blue-500', bg: 'bg-blue-200' },
-    cancelled: { text: 'text-red-500', bg: 'bg-red-200' },
+  const styles: Record<OrderStatus, { text: string; bg: string }> = {
+    DELIVERED: { text: 'text-green-500', bg: 'bg-green-100' },
+    IN_PROGRESS: { text: 'text-blue-500', bg: 'bg-blue-200' },
+    CANCELLED: { text: 'text-red-500', bg: 'bg-red-200' },
   };
-  const orders = [
-    {
-      status: 'delivered',
-      order_id: '123',
-      subtotal: '50.00',
-      items: [
-        { itemName: 'Garlic Naan', qty: 2, rate: 15.0, total: 30.0 },
-        { itemName: 'Fried Lentils', qty: 1, rate: 20.0, total: 20.0 },
-      ],
-    },
-    {
-      status: 'pending',
-      order_id: '124',
-      subtotal: '75.00',
-      items: [
-        { itemName: 'Garlic Naan', qty: 2, rate: 15, total: 30.0 },
-        { itemName: 'Butter Naan', qty: 1, rate: 20, total: 20.0 },
-      ],
-    },
-    {
-      status: 'cancelled',
-      order_id: '125',
-      subtotal: '100.00',
-      items: [
-        { itemName: 'Garlic Naan', qty: 2, rate: 15, total: 30.0 },
-        { itemName: 'Butter Chicken', qty: 1, rate: 20, total: 20.0 },
-      ],
-    },
-  ] satisfies Order[];
+
+  const { data: ordersResponse } = useOrders();
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
-  const [selectedOrder, setSelectedOrder] = React.useState<Order | null>(null);
+  const [selectedOrder, setSelectedOrder] = React.useState<OrderMeta | null>(
+    null
+  );
 
-  const openDialog = (order: Order) => {
+  const openDialog = (order: OrderMeta) => {
     setSelectedOrder(order);
     setIsDialogOpen(true);
   };
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([
-    'delivered',
-    'pending',
-    'cancelled',
+  const [selectedStatuses, setSelectedStatuses] = useState<OrderStatus[]>([
+    'DELIVERED',
+    'IN_PROGRESS',
+    'CANCELLED',
   ]);
-  const [filteredOrders, setFilteredOrders] = useState(orders);
+  const [filteredOrders, setFilteredOrders] = useState(
+    ordersResponse?.orders ?? []
+  );
 
-  const handleCheckboxChange = (status: string) => {
+  const handleCheckboxChange = (status: OrderStatus) => {
     setSelectedStatuses((prevSelected) =>
       prevSelected.includes(status)
         ? prevSelected.filter((s) => s !== status)
@@ -68,21 +46,17 @@ export function Index() {
 
   useEffect(() => {
     setFilteredOrders(
-      orders.filter((order) => selectedStatuses.includes(order.status))
+      (ordersResponse?.orders ?? []).filter((order) =>
+        selectedStatuses.includes(order.orderStatus)
+      )
     );
-  }, [selectedStatuses]);
+  }, [ordersResponse, selectedStatuses]);
 
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.scss file.
-   */
   return (
     <div
       className="font-sans wrapper"
       style={{ fontFamily: "'Roboto', sans-serif" }}
     >
-      {' '}
       {isDialogOpen && (
         <div
           className="fixed inset-0 bg-gray-500 bg-opacity-50 z-40"
@@ -93,7 +67,7 @@ export function Index() {
         <OrderDialog
           isOpen={isDialogOpen}
           onClose={() => setIsDialogOpen(false)}
-          order={selectedOrder}
+          meta={selectedOrder}
         />
       </div>
       <div className="container pt-12 text-black">
@@ -151,14 +125,14 @@ export function Index() {
                   <td className="py-7 uppercase text-[15px] xl:text-[10px] font-bold">
                     <span
                       className={`rounded-md tracking-wide p-[5px] mx-1 md:mx-5 ${
-                        styles[order.status].text
-                      } ${styles[order.status].bg}`}
+                        styles[order.orderStatus].text
+                      } ${styles[order.orderStatus].bg}`}
                     >
-                      {order.status}
+                      {order.orderStatus}
                     </span>
                   </td>
 
-                  <td className="py-7 md:px-4 text-xl">#{order.order_id}</td>
+                  <td className="py-7 md:px-4 text-xl">#{order.orderId}</td>
                   <td className="py-7 text-xl  text-right pr-2">
                     SAR {order.subtotal}
                   </td>
@@ -188,14 +162,14 @@ export function Index() {
                   <td className="py-7 uppercase text-[14px] xl:text-[10px] font-bold">
                     <span
                       className={`rounded-md tracking-wide p-[5px] mx-1 md:mx-5 ${
-                        styles[order.status].text
-                      } ${styles[order.status].bg}`}
+                        styles[order.orderStatus].text
+                      } ${styles[order.orderStatus].bg}`}
                     >
-                      {order.status}
+                      {order.orderStatus}
                     </span>
                   </td>
 
-                  <td className="py-7 md:px-4 text-xl">#{order.order_id}</td>
+                  <td className="py-7 md:px-4 text-xl">#{order.orderId}</td>
                   <td className="py-7 text-xl text-right pr-2">
                     SAR {order.subtotal}
                   </td>
@@ -225,14 +199,14 @@ export function Index() {
                   <td className="py-7 uppercase text-[14px] xl:text-[10px] font-bold">
                     <span
                       className={`rounded-md tracking-wide p-[5px] mx-1 md:mx-5 ${
-                        styles[order.status].text
-                      } ${styles[order.status].bg}`}
+                        styles[order.orderStatus].text
+                      } ${styles[order.orderStatus].bg}`}
                     >
-                      {order.status}
+                      {order.orderStatus}
                     </span>
                   </td>
 
-                  <td className="py-7 md:px-4 text-xl">#{order.order_id}</td>
+                  <td className="py-7 md:px-4 text-xl">#{order.orderId}</td>
                   <td className="py-7 text-xl text-right pr-2">
                     SAR {order.subtotal}
                   </td>
