@@ -62,6 +62,14 @@
       "options": {
         "lintFilePatterns": ["apps/hungerstation/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "pkg-tauri": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["export"],
+      "options": {
+        "command": "./tauri/build.sh",
+        "cwd": "apps/hungerstation"
+      }
     }
   },
   "tags": []
