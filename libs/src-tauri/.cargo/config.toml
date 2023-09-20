@@ -1,0 +1,8 @@
+# This is specific to WorkPC. Please update xwin PATH accordingly
+[target.x86_64-pc-windows-msvc]
+linker = "lld"
+rustflags = [
+  "-Lnative=/home/fahimalizain/.xwin/crt/lib/x86_64",
+  "-Lnative=/home/fahimalizain/.xwin/sdk/lib/um/x86_64",
+  "-Lnative=/home/fahimalizain/.xwin/sdk/lib/ucrt/x86_64"
+]
