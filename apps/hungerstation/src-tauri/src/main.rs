@@ -24,7 +24,7 @@ fn kitchen_print(order: String) -> types::KitchenPrintResponse {
         }
     };
 
-    if let Err(_err) = kitchen_printer::send(order) {
+    if let Err(_err) = kitchen_printer::send(types::PrinterSettings { width: 42 }, order) {
         println!("Error: {}", _err);
         return types::KitchenPrintResponse {
             success: false,

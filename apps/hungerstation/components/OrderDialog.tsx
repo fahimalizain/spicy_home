@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { OrderMeta, OrderStatus } from '../swr/types';
 import { useOrderDetail } from '../swr/get-order';
@@ -38,6 +38,13 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
       setTimeout(() => onClose(), 3000);
     }
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      // Clear print status when dialog is closed
+      setPrintStatus(null);
+    }
+  }, [isOpen]);
 
   if (!meta) {
     return null;

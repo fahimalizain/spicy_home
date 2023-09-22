@@ -6,6 +6,10 @@ pub struct KitchenPrintResponse {
     pub message: String,
 }
 
+pub struct PrinterSettings {
+    pub width: u8,
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum OrderStatus {
