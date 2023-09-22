@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { OrderMeta, OrderStatus } from '../swr/types';
 import { useOrderDetail } from '../swr/get-order';
+import { KitchenPrintResponse, useKitchenPrint } from '../swr/kitchen-print';
 
 interface Props {
   isOpen: boolean;
@@ -16,14 +17,33 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
     CANCELLED: { text: 'text-red-500', bg: 'bg-red-200' },
   };
 
-  const { data: order } = useOrderDetail({
+  const { data } = useOrderDetail({
     orderId: meta?.orderId,
     placedTimestamp: meta?.placedTimestamp,
   });
 
+  const { trigger: kitchenPrint, isMutating } = useKitchenPrint();
+  const [printStatus, setPrintStatus] = useState<KitchenPrintResponse | null>(
+    null
+  );
+
+  const handleKitchenPrint = async () => {
+    if (!data || isMutating) {
+      return;
+    }
+    const r = await kitchenPrint({ order: data.order });
+    setPrintStatus(r);
+
+    if (r.success) {
+      setTimeout(() => onClose(), 3000);
+    }
+  };
+
   if (!meta) {
     return null;
   }
+
+  console.info('isMutating', isMutating);
 
   return (
     <Transition show={isOpen}>
@@ -52,9 +72,9 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
               </h1>
               <hr />
               <h1 className="text-lg">Order Details</h1>
-              {order && (
+              {data && (
                 <ul className="mt-5 ">
-                  {order.order.items.map((item, index) => (
+                  {data.order.items.map((item, index) => (
                     <li
                       key={index}
                       className="my-1 xl:text-sm flex w-80 justify-between"
@@ -70,10 +90,37 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
                 <h3>Subtotal:</h3>
                 <h3>SAR {meta.subtotal}</h3>
               </div>
-              {meta.orderStatus === 'IN_PROGRESS' && (
-                <button className="w-full mt-8 text-center uppercase p-5 bg-blue-600 rounded-lg text-white">
-                  Kitchen Print
-                </button>
+              {data?.order && (
+                <>
+                  <button
+                    disabled={isMutating}
+                    className={
+                      'w-full mt-8 text-center uppercase p-5 bg-blue-600 rounded-lg text-white' +
+                      (isMutating
+                        ? ' opacity-50 cursor-not-allowed bg-gray-500'
+                        : '')
+                    }
+                    onClick={handleKitchenPrint}
+                  >
+                    Kitchen Print
+                  </button>
+                  {!isMutating && printStatus && (
+                    <div
+                      className={
+                        'p-4 mb-4 text-sm  rounded-lg ' +
+                        (printStatus.success
+                          ? 'bg-green-50 dark:bg-gray-800 text-green-800 dark:text-green-400'
+                          : 'bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400')
+                      }
+                      role="alert"
+                    >
+                      <span className="font-medium">
+                        {printStatus.success ? 'Success! ' : 'Error: '}
+                      </span>
+                      {printStatus.message}
+                    </div>
+                  )}
+                </>
               )}
             </>
           ) : (
