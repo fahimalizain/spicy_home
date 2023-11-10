@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import FilterDropdown from '../components/FilterDropdown';
 import { OrderDialog } from '../components/OrderDialog';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaRedo } from 'react-icons/fa';
 import { OrderMeta, OrderStatus } from '../swr/types';
 import { useOrders } from '../swr/list-orders/hook';
+import useDebouncedValue from '../hooks/useDebouncedValue';
 
 export function Index() {
   const styles: Record<OrderStatus, { text: string; bg: string }> = {
@@ -15,7 +16,8 @@ export function Index() {
     CANCELLED: { text: 'text-red-500', bg: 'bg-red-200' },
   };
 
-  const { data: ordersResponse } = useOrders();
+  const { data: ordersResponse, mutate, isValidating } = useOrders();
+  const _isLoading = useDebouncedValue(isValidating, 1000) || isValidating;
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [selectedOrder, setSelectedOrder] = React.useState<OrderMeta | null>(
@@ -89,12 +91,22 @@ export function Index() {
           Orders
         </h1>
         <div className="flex justify-between gap-4">
-          <FilterDropdown
-            selectedStatuses={selectedStatuses}
-            handleCheckboxChange={handleCheckboxChange}
-          />
+          <div className="flex gap-2">
+            <button
+              disabled={_isLoading}
+              onClick={mutate}
+              className="flex items-center gap-2 border-2 border-slate-300 rounded-full px-3 py-1 w-42"
+            >
+              <FaRedo className={_isLoading ? 'animate-spin' : ''} />
+              <span>Refresh</span>
+            </button>
+            <FilterDropdown
+              selectedStatuses={selectedStatuses}
+              handleCheckboxChange={handleCheckboxChange}
+            />
+          </div>
 
-          <div className="flex items-center justify-between border-2 border-slate-300 rounded-full px-3 py-1 w-80">
+          <div className="flex items-center justify-between border-2 border-slate-300 rounded-full px-3 py-1 w-72">
             <input
               type="text"
               placeholder="Search Order"
