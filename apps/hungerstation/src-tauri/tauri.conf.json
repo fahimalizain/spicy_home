@@ -1,13 +1,13 @@
 {
-  "$schema": "../../node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "../../../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "beforeBuildCommand": "",
     "beforeDevCommand": "",
     "devPath": "http://localhost:4200",
-    "distDir": "../../dist/apps/website-next"
+    "distDir": "../../../dist/apps/hungerstation/exported"
   },
   "package": {
-    "productName": "SpicyHome",
+    "productName": "hungerstation",
     "version": "0.1.0"
   },
   "tauri": {
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.fahimalizain.spicy-home",
+      "identifier": "com.fahimalizain.spicy-hungerstation",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -55,10 +55,11 @@
     },
     "windows": [
       {
-        "fullscreen": true,
+        "fullscreen": false,
+        "maximized": true,
         "height": 600,
         "resizable": true,
-        "title": "Spicy Home",
+        "title": "Hungerstation",
         "width": 800
       }
     ]
