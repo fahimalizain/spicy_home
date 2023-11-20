@@ -3,6 +3,7 @@ import { Transition } from '@headlessui/react';
 import { OrderMeta, OrderStatus } from '../swr/types';
 import { useOrderDetail } from '../swr/get-order';
 import { KitchenPrintResponse, useKitchenPrint } from '../swr/kitchen-print';
+import clsx from 'clsx';
 
 interface Props {
   isOpen: boolean;
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
+  const [isPrepaid, setIsPrepaid] = useState(true);
+
   const styles: Record<OrderStatus, { text: string; bg: string }> = {
     DELIVERED: { text: 'text-green-700', bg: 'bg-green-100' },
     IN_PROGRESS: { text: 'text-blue-500', bg: 'bg-blue-200' },
@@ -31,7 +34,7 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
     if (!data || isMutating) {
       return;
     }
-    const r = await kitchenPrint({ order: data.order });
+    const r = await kitchenPrint({ order: { ...data.order, isPrepaid } });
     setPrintStatus(r);
 
     if (r.success) {
@@ -98,11 +101,37 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
                 <h3>SAR {meta.subtotal}</h3>
               </div>
               {data?.order && (
-                <>
+                <div className="flex flex-col gap-2 mt-4">
+                  <div className="flex justify-stretch gap-2">
+                    <button
+                      onClick={() => setIsPrepaid(true)}
+                      className={clsx(
+                        'grow px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500',
+                        {
+                          'text-white bg-green-600 hover:bg-green-700 focus:ring-green-500':
+                            isPrepaid,
+                        }
+                      )}
+                    >
+                      PREPAID
+                    </button>
+                    <button
+                      onClick={() => setIsPrepaid(false)}
+                      className={clsx(
+                        'grow px-4 py-2 border border-transparent text-sm font-medium rounded-md text-black bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500',
+                        {
+                          'text-white bg-green-600 hover:bg-green-700 focus:ring-green-500':
+                            !isPrepaid,
+                        }
+                      )}
+                    >
+                      POSTPAID
+                    </button>
+                  </div>
                   <button
                     disabled={isMutating}
                     className={
-                      'w-full mt-8 text-center uppercase p-5 bg-blue-600 rounded-lg text-white' +
+                      'w-full text-center uppercase p-5 bg-blue-600 rounded-lg text-white' +
                       (isMutating
                         ? ' opacity-50 cursor-not-allowed bg-gray-500'
                         : '')
@@ -113,12 +142,15 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
                   </button>
                   {!isMutating && printStatus && (
                     <div
-                      className={
-                        'p-4 mb-4 text-sm  rounded-lg ' +
-                        (printStatus.success
-                          ? 'bg-green-50 dark:bg-gray-800 text-green-800 dark:text-green-400'
-                          : 'bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400')
-                      }
+                      className={clsx(
+                        'p-4 mb-4 text-sm text-center rounded-lg ',
+                        {
+                          'bg-green-50 dark:bg-gray-800 text-green-800 dark:text-green-400':
+                            printStatus.success,
+                          'bg-red-50 dark:bg-gray-800 text-red-800 dark:text-red-400':
+                            !printStatus.success,
+                        }
+                      )}
                       role="alert"
                     >
                       <span className="font-medium">
@@ -127,7 +159,7 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
                       {printStatus.message}
                     </div>
                   )}
-                </>
+                </div>
               )}
             </>
           ) : (
