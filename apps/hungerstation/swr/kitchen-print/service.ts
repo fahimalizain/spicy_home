@@ -7,6 +7,15 @@ import { parseISO, format } from 'date-fns';
 export async function kitchenPrint(
   params: KitchenPrintRequest
 ): Promise<KitchenPrintResponse> {
+  if (!window.__TAURI_IPC__) {
+    return new Promise((r) =>
+      setTimeout(
+        () => r({ success: true, message: 'Running Outside Tauri' }),
+        2000
+      )
+    );
+  }
+
   return invoke<KitchenPrintResponse>('kitchen_print', {
     order: JSON.stringify({
       ...params.order,

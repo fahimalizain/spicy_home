@@ -22,6 +22,7 @@ pub enum OrderStatus {
 #[serde(rename_all = "camelCase")]
 pub struct Order {
     pub order_id: String,
+    pub is_prepaid: bool,
     pub placed_timestamp: String,
     pub status: OrderStatus,
     pub global_entity_id: String,

@@ -19,13 +19,20 @@ pub fn send(settings: PrinterSettings, order: Order) -> Result<(), std::io::Erro
         .chain_style("NORMAL")?
         .chain_text("Hafsah Bint Omar Street, Rawdah, Riyadh")?
         .chain_feed(1)?
-        .chain_text(&"Hungerstation Order")?
-        .chain_feed(1)?;
+        .chain_text(&"Hungerstation Order")?;
 
     printer
         .chain_align("LT")?
         .chain_text(&("Order #".to_owned() + &order.order_id))?
-        .chain_text(&("Time: ".to_owned() + &order.placed_timestamp))?;
+        .chain_text(&("Time: ".to_owned() + &order.placed_timestamp))?
+        .chain_feed(1)?;
+
+    // PREPAID / POSTPAID
+    printer.chain_align("CT")?.chain_text(if order.is_prepaid {
+        "PREPAID"
+    } else {
+        "POSTPAID"
+    })?;
 
     // Item Table
     let item_table_lines = format_order_table(&order, &settings);

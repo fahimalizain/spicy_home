@@ -1,6 +1,6 @@
 // import styles from './index.module.scss';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import React from 'react';
 import FilterDropdown from '../components/FilterDropdown';
 import { OrderDialog } from '../components/OrderDialog';
@@ -29,6 +29,10 @@ export function Index() {
     setIsDialogOpen(true);
   };
   const [searchTerm, setSearchTerm] = useState('');
+  const knownStatuses = useMemo(
+    () => ['DELIVERED', 'IN_PROGRESS', 'CANCELLED'],
+    []
+  );
   const [selectedStatuses, setSelectedStatuses] = useState<OrderStatus[]>([
     'DELIVERED',
     'IN_PROGRESS',
@@ -48,11 +52,20 @@ export function Index() {
 
   useEffect(() => {
     setFilteredOrders(
-      (ordersResponse?.orders ?? []).filter((order) =>
-        selectedStatuses.includes(order.orderStatus)
-      )
+      (ordersResponse?.orders ?? []).filter((order) => {
+        if (selectedStatuses.includes(order.orderStatus)) {
+          return true;
+        }
+
+        if (!knownStatuses.includes(order.orderStatus)) {
+          order.orderStatus = 'IN_PROGRESS';
+          return true;
+        }
+
+        return false;
+      })
     );
-  }, [ordersResponse, selectedStatuses]);
+  }, [knownStatuses, ordersResponse, selectedStatuses]);
 
   return (
     <div
