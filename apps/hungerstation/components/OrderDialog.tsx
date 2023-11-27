@@ -16,7 +16,7 @@ export const OrderDialog: React.FC<Props> = ({ isOpen, onClose, meta }) => {
 
   const styles: Record<OrderStatus, { text: string; bg: string }> = {
     DELIVERED: { text: 'text-green-700', bg: 'bg-green-100' },
-    IN_PROGRESS: { text: 'text-blue-500', bg: 'bg-blue-200' },
+    INPROGRESS: { text: 'text-blue-500', bg: 'bg-blue-200' },
     CANCELLED: { text: 'text-red-500', bg: 'bg-red-200' },
   };
 

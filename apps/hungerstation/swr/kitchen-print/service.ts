@@ -3,6 +3,7 @@
 import { KitchenPrintRequest, KitchenPrintResponse } from './types';
 import { invoke } from '@tauri-apps/api/tauri';
 import { parseISO, format } from 'date-fns';
+import { OrderStatuses } from '../types';
 
 export async function kitchenPrint(
   params: KitchenPrintRequest
@@ -19,6 +20,9 @@ export async function kitchenPrint(
   return invoke<KitchenPrintResponse>('kitchen_print', {
     order: JSON.stringify({
       ...params.order,
+      status: OrderStatuses.includes(params.order.status)
+        ? params.order.status
+        : 'INPROGRESS',
       placedTimestamp: format(
         parseISO(params.order.placedTimestamp),
         'dd/MM/yyyy h:mm aa'

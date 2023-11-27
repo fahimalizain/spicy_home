@@ -12,7 +12,7 @@ import useDebouncedValue from '../hooks/useDebouncedValue';
 export function Index() {
   const styles: Record<OrderStatus, { text: string; bg: string }> = {
     DELIVERED: { text: 'text-green-500', bg: 'bg-green-100' },
-    IN_PROGRESS: { text: 'text-blue-500', bg: 'bg-blue-200' },
+    INPROGRESS: { text: 'text-blue-500', bg: 'bg-blue-200' },
     CANCELLED: { text: 'text-red-500', bg: 'bg-red-200' },
   };
 
@@ -35,7 +35,7 @@ export function Index() {
   );
   const [selectedStatuses, setSelectedStatuses] = useState<OrderStatus[]>([
     'DELIVERED',
-    'IN_PROGRESS',
+    'INPROGRESS',
     'CANCELLED',
   ]);
   const [filteredOrders, setFilteredOrders] = useState(
@@ -58,7 +58,7 @@ export function Index() {
         }
 
         if (!knownStatuses.includes(order.orderStatus)) {
-          order.orderStatus = 'IN_PROGRESS';
+          order.orderStatus = 'INPROGRESS';
           return true;
         }
 

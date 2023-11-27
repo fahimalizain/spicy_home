@@ -1,4 +1,9 @@
-export type OrderStatus = 'DELIVERED' | 'CANCELLED' | 'IN_PROGRESS';
+export type OrderStatus = 'DELIVERED' | 'CANCELLED' | 'INPROGRESS';
+export const OrderStatuses: OrderStatus[] = [
+  'DELIVERED',
+  'CANCELLED',
+  'INPROGRESS',
+];
 
 export type OrderMeta = {
   orderId: string;
