@@ -8,7 +8,7 @@ interface FilterDropdownProps {
   handleCheckboxChange: (status: OrderStatus) => void;
 }
 
-const allStatuses: OrderStatus[] = ['DELIVERED', 'CANCELLED', 'IN_PROGRESS'];
+const allStatuses: OrderStatus[] = ['DELIVERED', 'CANCELLED', 'INPROGRESS'];
 
 const FilterDropdown: React.FC<FilterDropdownProps> = ({
   selectedStatuses,
