@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styles from './best-sellers-component.module.scss';
 
 /* eslint-disable-next-line */
 export interface BestSellersComponentProps {}

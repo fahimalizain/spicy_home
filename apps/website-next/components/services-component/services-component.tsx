@@ -1,5 +1,3 @@
-import styles from './services-component.module.scss';
-
 /* eslint-disable-next-line */
 export interface ServicesComponentProps {}
 

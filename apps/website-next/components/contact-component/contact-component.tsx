@@ -1,4 +1,3 @@
-import styles from './contact-component.module.scss';
 import { useState } from 'react';
 
 /* eslint-disable-next-line */

@@ -1,8 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import styles from './reviews-component.module.scss';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 
 /* eslint-disable-next-line */

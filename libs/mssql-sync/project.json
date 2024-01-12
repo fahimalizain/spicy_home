@@ -11,16 +11,12 @@
         "outputPath": "dist/libs/mssql-sync",
         "main": "libs/mssql-sync/src/index.ts",
         "tsConfig": "libs/mssql-sync/tsconfig.lib.json",
-        "assets": ["libs/mssql-sync/*.md"],
-        "updateBuildableProjectDepsInPackageJson": true
+        "assets": ["libs/mssql-sync/*.md"]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/mssql-sync/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "sync": {
       "executor": "nx:run-commands",

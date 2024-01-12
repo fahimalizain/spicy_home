@@ -1,5 +1,3 @@
-import styles from './stats-component.module.scss';
-
 /* eslint-disable-next-line */
 export interface StatsComponentProps {}
 
