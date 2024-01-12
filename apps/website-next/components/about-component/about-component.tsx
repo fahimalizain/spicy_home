@@ -1,5 +1,3 @@
-import styles from './about-component.module.scss';
-
 /* eslint-disable-next-line */
 export interface AboutComponentProps {}
 

@@ -1,5 +1,3 @@
-import styles from './footer-component.module.scss';
-
 /* eslint-disable-next-line */
 export interface FooterComponentProps {}
 

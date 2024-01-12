@@ -107,7 +107,7 @@ export function Index() {
           <div className="flex gap-2">
             <button
               disabled={_isLoading}
-              onClick={mutate}
+              onClick={() => mutate()}
               className="flex items-center gap-2 border-2 border-slate-300 rounded-full px-3 py-1 w-42"
             >
               <FaRedo className={_isLoading ? 'animate-spin' : ''} />
