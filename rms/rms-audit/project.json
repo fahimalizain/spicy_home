@@ -1,0 +1,58 @@
+{
+  "name": "rms-audit",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "rms/rms-audit",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/rms/rms-audit"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "rms/rms-audit"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rms-audit:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rms-audit:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "rms-audit:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "rms-audit:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "rms/rms-audit/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": []
+}
