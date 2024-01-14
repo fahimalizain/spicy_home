@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@nextui-org/react": "^2.2.9",
     "@node-escpos/core": "^0.4.0",
     "@node-escpos/network-adapter": "^0.0.1",
     "@tauri-apps/api": "^1.4.0",
@@ -16,8 +17,10 @@
     "classnames": "^2.3.2",
     "cli-progress": "3.12.0",
     "clsx": "^2.0.0",
+    "currency.js": "^2.0.4",
     "date-fns": "^2.30.0",
     "dotenv": "16.0.3",
+    "framer-motion": "^10.18.0",
     "mssql": "8.0.2",
     "next": "13.4.1",
     "react": "18.2.0",
@@ -32,6 +35,7 @@
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "@nrwl/node": "17.2.8",
+    "@nx/eslint": "17.2.8",
     "@nx/eslint-plugin": "17.2.8",
     "@nx/jest": "17.2.8",
     "@nx/js": "17.2.8",
@@ -69,7 +73,6 @@
     "tailwindcss": "^3.2.7",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
-    "typescript": "5.2.2",
-    "@nx/eslint": "17.2.8"
+    "typescript": "5.2.2"
   }
 }

@@ -20,6 +20,26 @@ export interface DBRMSItem {
   LoadModifier: boolean;
 }
 
+export type RMSItemCanceled = {
+  Branch: number;
+  Counter: number;
+  Date: Date;
+  IsModifier: boolean;
+  ItemId: number;
+  ItemSlNo: number;
+  OrderNo: number;
+  Period: number;
+  Printed: boolean;
+  Qty: number;
+  Rate: number;
+  SelectionID: number;
+  SizeId: number;
+  SlNo: number;
+  TemperatureID: number;
+  UserID: number;
+  Waiter: number;
+};
+
 export interface FrappeRMSItem {
   doctype: string;
   item_id: string;

@@ -6,6 +6,8 @@ import SyncWaiters from './sync_waiters';
 // import SyncItemGroups from './sync_item_group';
 import { connectToDB } from './db';
 
+export type * from './types';
+
 dotenv.config();
 
 async function main() {

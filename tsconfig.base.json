@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@spicy-home/test-1": ["libs/test-1/src/index.ts"]
+      "@spicy-home/mssql": ["libs/mssql-sync/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

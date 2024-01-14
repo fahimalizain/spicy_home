@@ -56,6 +56,21 @@ export interface DBRMSOrderDetail {
   TaxGroup: number;
 }
 
+export interface RMSOrderHeader extends DBRMSOrder {}
+export interface RMSOrderDetails extends DBRMSOrderDetail {}
+
+export type RMSAuditTrial = {
+  Action: 'A' | 'M';
+  CompanyID: number;
+  DateTime: Date;
+  No: number;
+  PeriodID: number;
+  Remarks: string;
+  SystemName: string;
+  UserId: number;
+  WindowName: string;
+};
+
 export interface RMSOrder {
   doctype: string;
   docstatus?: number;
